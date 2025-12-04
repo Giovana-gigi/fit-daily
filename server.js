@@ -8,9 +8,18 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+}));
 app.use(express.json());
 app.use(express.static(__dirname));
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+    res.json({ status: 'ok', message: 'Server is running' });
+});
 
 // Conecta ao banco de dados SQLite
 const db = new sqlite3.Database('./fitdaily.db', (err) => {
@@ -284,6 +293,10 @@ app.get('/', (req, res) => {
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`🚀 Servidor rodando na porta ${PORT}`);
     console.log(`📊 Banco de dados: fitdaily.db`);
+    console.log(`🌐 Ambiente: ${process.env.NODE_ENV || 'development'}`);
+}).on('error', (err) => {
+    console.error('❌ Erro ao iniciar servidor:', err);
+    process.exit(1);
 });
 
 // Fecha o banco de dados quando o servidor é encerrado
