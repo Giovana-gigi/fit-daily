@@ -247,7 +247,7 @@
     <script>
         const API_URL = window.location.hostname === 'localhost' 
             ? 'http://localhost:3000/api' 
-            : '/api';
+            : `${window.location.origin}/api`;
 
         // Verifica se já está logado
         window.addEventListener('DOMContentLoaded', () => {
