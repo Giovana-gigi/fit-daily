@@ -224,12 +224,8 @@ function addTask() {
         return;
     }
     
-    // Modo estudo: pega a matéria e tempo
+    // Modo estudo: pega apenas a matéria (sem tempo pré-definido)
     let subject = '';
-    let studyMinutes = 0;
-    let studyTimeValue = 0;
-    let studyTimeUnit = 'min';
-    let studyTimeDisplay = '';
     
     if (typeof isStudyMode !== 'undefined' && isStudyMode) {
         const subjectInput = document.getElementById('subjectInput');
@@ -237,26 +233,6 @@ function addTask() {
         if (subject === '') {
             subjectInput.focus();
             return;
-        }
-        
-        const timeInput = document.getElementById('timeInput');
-        const unitSelect = document.getElementById('timeUnit');
-        
-        studyTimeValue = parseInt(timeInput.value) || 0;
-        studyTimeUnit = unitSelect.value;
-        
-        if (studyTimeValue <= 0) {
-            timeInput.focus();
-            return;
-        }
-        
-        // Converte para minutos
-        if (studyTimeUnit === 'hour') {
-            studyMinutes = studyTimeValue * 60;
-            studyTimeDisplay = studyTimeValue + 'h';
-        } else {
-            studyMinutes = studyTimeValue;
-            studyTimeDisplay = studyTimeValue + ' min';
         }
     }
     
@@ -298,10 +274,10 @@ function addTask() {
         completed: false,
         date: new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), now.getHours(), now.getMinutes()).toISOString(),
         time: now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
-        minutes: isFitnessMode ? minutes : (typeof isStudyMode !== 'undefined' && isStudyMode ? studyMinutes : undefined),
-        timeValue: isFitnessMode ? timeValue : (typeof isStudyMode !== 'undefined' && isStudyMode ? studyTimeValue : undefined),
-        timeUnit: isFitnessMode ? timeUnit : (typeof isStudyMode !== 'undefined' && isStudyMode ? studyTimeUnit : undefined),
-        timeDisplay: isFitnessMode ? timeDisplay : (typeof isStudyMode !== 'undefined' && isStudyMode ? studyTimeDisplay : undefined),
+        minutes: isFitnessMode ? minutes : undefined,
+        timeValue: isFitnessMode ? timeValue : undefined,
+        timeUnit: isFitnessMode ? timeUnit : undefined,
+        timeDisplay: isFitnessMode ? timeDisplay : undefined,
         subject: (typeof isStudyMode !== 'undefined' && isStudyMode) ? subject : undefined
     };
     
@@ -323,7 +299,6 @@ function addTask() {
     }
     if (typeof isStudyMode !== 'undefined' && isStudyMode) {
         document.getElementById('subjectInput').value = '';
-        document.getElementById('timeInput').value = '';
         document.getElementById('subjectInput').focus();
     } else {
         input.focus();
