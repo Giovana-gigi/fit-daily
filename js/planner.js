@@ -1,5 +1,7 @@
 // Sistema de Planner com Calendário e Banco de Dados
-const API_URL = 'http://localhost:3000/api';
+const API_URL = window.location.hostname === 'localhost' 
+    ? 'http://localhost:3000/api' 
+    : '/api';
 let tasks = [];
 let currentDate = new Date();
 let selectedDate = new Date();

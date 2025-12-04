@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const path = require('path');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
@@ -281,10 +281,9 @@ app.get('/', (req, res) => {
 });
 
 // Inicia o servidor
-app.listen(PORT, () => {
-    console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`🚀 Servidor rodando na porta ${PORT}`);
     console.log(`📊 Banco de dados: fitdaily.db`);
-    console.log(`👥 Admin: http://localhost:${PORT}/admin.html`);
 });
 
 // Fecha o banco de dados quando o servidor é encerrado
