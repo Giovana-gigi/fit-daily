@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Planner - Fit & Daily</title>
+    <link rel="stylesheet" href="../css/planner.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <script>
+        // Verifica se está logado
+        const currentUser = localStorage.getItem('currentUser');
+        if (!currentUser) {
+            window.location.href = 'login.html';
+        }
+
+        // Função de logout
+        function logout() {
+            if (confirm('Deseja realmente sair?')) {
+                localStorage.removeItem('currentUser');
+                window.location.href = 'login.html';
+            }
+        }
+    </script>
+    <div class="planner-container">
+        <div class="top-bar">
+            <a href="../index.html" class="back-button">← Voltar</a>
+            <button onclick="logout()" class="logout-btn">Sair</button>
+        </div>
+        
+        <header class="planner-header">
+            <h1 class="planner-title">Daily</h1>
+            <p class="planner-subtitle">📚 Organize seus estudos</p>
+        </header>
+
+        <div class="content-grid">
+            <!-- Calendar Section -->
+            <div class="calendar-section">
+                <div class="calendar-header">
+                    <button onclick="previousMonth()" class="calendar-nav">‹</button>
+                    <h3 id="currentMonth" class="calendar-month"></h3>
+                    <button onclick="nextMonth()" class="calendar-nav">›</button>
+                </div>
+                <div class="calendar-weekdays">
+                    <div>Dom</div>
+                    <div>Seg</div>
+                    <div>Ter</div>
+                    <div>Qua</div>
+                    <div>Qui</div>
+                    <div>Sex</div>
+                    <div>Sáb</div>
+                </div>
+                <div id="calendarDays" class="calendar-days"></div>
+                
+                <div class="progress-section">
+                    <div class="progress-header">
+                        <span class="progress-label">Progresso do dia</span>
+                        <span class="progress-percent" id="progressPercent">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-stats">
+                        <span><span id="completedTasks">0</span> concluídas</span>
+                        <span><span id="totalTasks">0</span> total</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tasks Section -->
+            <div class="tasks-section">
+                <div class="tasks-header">
+                    <h3 id="selectedDateTitle">Hoje</h3>
+                    <button onclick="clearCompleted()" class="clear-btn">Limpar</button>
+                </div>
+                
+                <!-- Timer Section -->
+                <div class="timer-section" id="timerSection" style="display: none;">
+                    <div class="timer-display">
+                        <div class="timer-info">
+                            <span class="timer-subject" id="timerSubject"></span>
+                            <span class="timer-task" id="timerTask"></span>
+                        </div>
+                        <div class="timer-time" id="timerTime">00:00:00</div>
+                        <div class="timer-controls">
+                            <button onclick="pauseTimer()" id="pauseBtn" class="timer-btn pause-btn">⏸ Pausar</button>
+                            <button onclick="stopTimer()" class="timer-btn stop-btn">⏹ Finalizar</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="add-task">
+                    <input type="text" id="subjectInput" placeholder="Matéria" class="subject-input">
+                    <input type="text" id="taskInput" placeholder="O que estudar..." class="task-input">
+                    <button onclick="addTask()" class="add-btn">+</button>
+                </div>
+
+                <div id="tasksList" class="tasks-list">
+                    <!-- Tasks serão adicionadas aqui -->
+                </div>
+                <p id="emptyMessage" class="empty-message">Nenhum estudo agendado neste dia</p>
+                
+                <div class="study-stats">
+                    <div class="stat-item">
+                        <span class="stat-icon">📚</span>
+                        <div class="stat-content">
+                            <span class="stat-value" id="subjectsCount">0</span>
+                            <span class="stat-label">matérias</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">⏱️</span>
+                        <div class="stat-content">
+                            <span class="stat-value" id="totalStudyTime">0h</span>
+                            <span class="stat-label">estudadas</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const plannerType = 'daily';
+        const isFitnessMode = false;
+        const isStudyMode = true;
+    </script>
+    <script src="../js/planner.js"></script>
+</body>
+</html>

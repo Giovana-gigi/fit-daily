@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fit & Daily - FEITO.COM</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <script>
+        // Verifica se está logado
+        const currentUser = localStorage.getItem('currentUser');
+        if (!currentUser) {
+            window.location.href = 'html/login.html';
+        }
+    </script>
+    <div class="container">
+        <div class="user-header">
+            <span class="user-name" id="userName"></span>
+            <div>
+                <button onclick="window.location.href='html/admin.html'" class="admin-btn" id="adminBtn" style="display: none;">Admin</button>
+                <button onclick="logout()" class="logout-btn">Sair</button>
+            </div>
+        </div>
+        
+        <header>
+            <h1 class="main-title">
+                <span class="fit">Fit</span>
+                <span class="ampersand">&</span>
+                <span class="daily">Daily</span>
+            </h1>
+        </header>
+
+        <main>
+            <div class="cards-container">
+                <!-- Fitness Card -->
+                <div class="card">
+                    <div class="card-content">
+                        <h2 class="card-title">Fitness</h2>
+                        <a href="html/fitness.html" class="card-button">
+                            Clique aqui
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Daily Card -->
+                <div class="card">
+                    <div class="card-content">
+                        <h2 class="card-title">Daily</h2>
+                        <a href="html/daily.html" class="card-button">
+                            Clique aqui
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
